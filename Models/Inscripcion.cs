@@ -40,7 +40,6 @@ public class Inscripcion
     [DataType(DataType.DateTime)]
     public DateTime FechaInscripcion { get; set; } = DateTime.Now;
 
-    // Calculados en el controlador a partir del curso elegido.
     public string NombreCurso { get; set; } = string.Empty;
     public decimal Descuento { get; set; }
     public decimal Total { get; set; }

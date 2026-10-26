@@ -2,8 +2,6 @@ using EscuelaMusica.Models;
 
 namespace EscuelaMusica.Services;
 
-// Almacén en memoria (Singleton). Suficiente para la demostración; se puede
-// reemplazar por Entity Framework sin cambiar los controladores.
 public class EscuelaRepositorio
 {
     private readonly object _lock = new();
@@ -62,7 +60,6 @@ public class EscuelaRepositorio
         }
     }
 
-    // Registra la inscripción y descuenta un cupo. Devuelve false si no hay cupos.
     public bool Registrar(Inscripcion inscripcion)
     {
         lock (_lock)
@@ -80,7 +77,6 @@ public class EscuelaRepositorio
         }
     }
 
-    // Elimina la inscripción y devuelve el cupo al curso.
     public bool Cancelar(int id)
     {
         lock (_lock)

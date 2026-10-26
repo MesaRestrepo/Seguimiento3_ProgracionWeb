@@ -13,7 +13,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        // Los primeros cursos se muestran como destacados en la portada.
         return View(_repo.ObtenerCursos().Take(3).ToList());
     }
 

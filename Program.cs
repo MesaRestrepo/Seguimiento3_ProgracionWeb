@@ -13,7 +13,6 @@ if (!app.Environment.IsDevelopment())
 }
 else
 {
-    // En hosting (Render, Azure, etc.) el HTTPS lo termina el proxy.
     app.UseHttpsRedirection();
 }
 

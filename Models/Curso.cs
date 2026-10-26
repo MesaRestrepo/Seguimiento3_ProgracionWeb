@@ -25,6 +25,5 @@ public class Curso
     [Display(Name = "Cupos disponibles")]
     public int Cupos { get; set; }
 
-    // Archivo dentro de wwwroot/img.
     public string Imagen { get; set; } = string.Empty;
 }

@@ -1,5 +1,3 @@
-﻿// Cálculo en vivo del total en el formulario de inscripción.
-// Debe reflejar la misma regla que CalculadoraMatricula.cs (el servidor recalcula siempre).
 (function () {
     const datos = document.getElementById('datos-precios');
     const curso = document.getElementById('CursoId');

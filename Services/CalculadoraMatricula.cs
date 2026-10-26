@@ -2,7 +2,6 @@ namespace EscuelaMusica.Services;
 
 public static class CalculadoraMatricula
 {
-    // 10% desde 6 meses, 15% con 12 meses.
     public static decimal PorcentajeDescuento(int meses) => meses switch
     {
         >= 12 => 0.15m,

@@ -10,7 +10,6 @@ public class CursosController : Controller
 
     public CursosController(EscuelaRepositorio repo) => _repo = repo;
 
-    // GET: /Cursos?instrumento=Piano&nivel=Basico
     public IActionResult Index(string? instrumento, Nivel? nivel)
     {
         ViewBag.Instrumentos = _repo.ObtenerInstrumentos();
@@ -19,7 +18,6 @@ public class CursosController : Controller
         return View(_repo.ObtenerCursos(instrumento, nivel));
     }
 
-    // GET: /Cursos/Detalle/3
     public IActionResult Detalle(int id)
     {
         var curso = _repo.ObtenerCurso(id);
