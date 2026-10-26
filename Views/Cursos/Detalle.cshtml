@@ -1,0 +1,45 @@
+@model Curso
+@{
+    ViewData["Title"] = Model.Nombre;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-action="Index">Cursos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Nombre</li>
+    </ol>
+</nav>
+
+<div class="card border-0 shadow-sm overflow-hidden">
+    <div class="row g-0">
+        <div class="col-md-5">
+            <img src="~/img/@Model.Imagen" class="foto-detalle" alt="@Model.Nombre" />
+        </div>
+        <div class="col-md-7">
+            <div class="card-body p-4">
+                <h1 class="h2 mb-1">@Model.Nombre</h1>
+                <span class="badge text-bg-secondary mb-3">@Model.Nivel</span>
+                <p class="lead">@Model.Descripcion</p>
+                <dl class="row">
+                    <dt class="col-sm-4">Instrumento</dt>
+                    <dd class="col-sm-8">@Model.Instrumento</dd>
+                    <dt class="col-sm-4">Profesor</dt>
+                    <dd class="col-sm-8">@Model.Profesor</dd>
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.PrecioMensual)</dt>
+                    <dd class="col-sm-8">@Model.PrecioMensual.ToString("C0")</dd>
+                    <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Cupos)</dt>
+                    <dd class="col-sm-8">@Model.Cupos</dd>
+                </dl>
+                <a class="btn btn-outline-secondary" asp-action="Index">Volver</a>
+                @if (Model.Cupos > 0)
+                {
+                    <a class="btn btn-dark" asp-controller="Inscripciones" asp-action="Crear" asp-route-cursoId="@Model.Id">Inscribirme</a>
+                }
+                else
+                {
+                    <span class="badge text-bg-danger ms-2">Sin cupos</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>

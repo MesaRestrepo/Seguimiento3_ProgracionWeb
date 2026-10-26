@@ -1,0 +1,52 @@
+@model IReadOnlyList<Inscripcion>
+@{
+    ViewData["Title"] = "Inscripciones";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Inscripciones</h1>
+    <a class="btn btn-dark" asp-action="Crear">Nueva inscripción</a>
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">Aún no hay inscripciones registradas.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-hover align-middle bg-white shadow-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Estudiante</th>
+                    <th>Curso</th>
+                    <th>Horario</th>
+                    <th class="text-center">Meses</th>
+                    <th class="text-end">Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var i in Model)
+                {
+                    <tr>
+                        <td>@i.Id</td>
+                        <td>@i.NombreEstudiante<br /><small class="text-muted">@i.Correo</small></td>
+                        <td>@i.NombreCurso</td>
+                        <td>@i.Horario</td>
+                        <td class="text-center">@i.Meses</td>
+                        <td class="text-end">@i.Total.ToString("C0")</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Confirmacion" asp-route-id="@i.Id">Ver</a>
+                            <form method="post" asp-action="Cancelar" asp-route-id="@i.Id" class="d-inline"
+                                  onsubmit="return confirm('¿Cancelar esta inscripción?');">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Cancelar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

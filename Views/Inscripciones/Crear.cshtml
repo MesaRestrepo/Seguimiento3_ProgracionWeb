@@ -1,0 +1,87 @@
+@model Inscripcion
+@{
+    ViewData["Title"] = "Inscribirse";
+}
+
+<h1 class="mb-4">Inscripción a un curso</h1>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <form method="post" asp-action="Crear" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label asp-for="CursoId" class="form-label"></label>
+                            <select asp-for="CursoId" asp-items="(SelectList)ViewBag.Cursos" class="form-select">
+                                <option value="0">-- Seleccione un curso --</option>
+                            </select>
+                            <span asp-validation-for="CursoId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Meses" class="form-label"></label>
+                            <input asp-for="Meses" type="number" min="1" max="12" class="form-control" />
+                            <span asp-validation-for="Meses" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label asp-for="NombreEstudiante" class="form-label"></label>
+                            <input asp-for="NombreEstudiante" class="form-control" />
+                            <span asp-validation-for="NombreEstudiante" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Edad" class="form-label"></label>
+                            <input asp-for="Edad" type="number" class="form-control" />
+                            <span asp-validation-for="Edad" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Correo" class="form-label"></label>
+                            <input asp-for="Correo" type="email" class="form-control" />
+                            <span asp-validation-for="Correo" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Telefono" class="form-label"></label>
+                            <input asp-for="Telefono" type="tel" class="form-control" />
+                            <span asp-validation-for="Telefono" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12">
+                            <label asp-for="Horario" class="form-label"></label>
+                            <select asp-for="Horario" asp-items="(SelectList)ViewBag.Horarios" class="form-select">
+                                <option value="">-- Seleccione un horario --</option>
+                            </select>
+                            <span asp-validation-for="Horario" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-dark">Confirmar inscripción</button>
+                        <a class="btn btn-outline-secondary" asp-controller="Cursos" asp-action="Index">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm resumen-total">
+            <div class="card-body">
+                <h5 class="card-title">Resumen</h5>
+                <div class="d-flex justify-content-between"><span>Subtotal</span><span id="res-subtotal">$0</span></div>
+                <div class="d-flex justify-content-between text-success"><span>Descuento</span><span id="res-descuento">- $0</span></div>
+                <hr />
+                <div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span id="res-total">$0</span></div>
+                <p class="small text-muted mt-3 mb-0">10% de descuento desde 6 meses y 15% con 12 meses.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="datos-precios" type="application/json">@Json.Serialize((Dictionary<int, decimal>)ViewBag.Precios)</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

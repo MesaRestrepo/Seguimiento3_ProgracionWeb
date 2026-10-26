@@ -1,0 +1,76 @@
+@model IReadOnlyList<Curso>
+@{
+    ViewData["Title"] = "Cursos";
+    var instrumentos = (IReadOnlyList<string>)ViewBag.Instrumentos;
+    string? instrumentoSel = ViewBag.InstrumentoSeleccionado;
+    Nivel? nivelSel = ViewBag.NivelSeleccionado;
+}
+
+<h1 class="mb-4">Nuestros cursos</h1>
+
+<form method="get" asp-action="Index" class="row g-3 align-items-end mb-4">
+    <div class="col-md-4">
+        <label for="instrumento" class="form-label">Instrumento</label>
+        <select id="instrumento" name="instrumento" class="form-select">
+            <option value="">Todos</option>
+            @foreach (var i in instrumentos)
+            {
+                <option value="@i" selected="@(i == instrumentoSel)">@i</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="nivel" class="form-label">Nivel</label>
+        <select id="nivel" name="nivel" class="form-select">
+            <option value="">Todos</option>
+            @foreach (var n in Enum.GetValues<Nivel>())
+            {
+                <option value="@n" selected="@(n == nivelSel)">@n</option>
+            }
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-dark me-2">Filtrar</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Limpiar</a>
+    </div>
+</form>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-info">No hay cursos con esos filtros.</div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var curso in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/img/@curso.Imagen" class="card-img-top foto-curso" alt="@curso.Nombre" />
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">@curso.Nombre</h5>
+                        <span class="badge text-bg-secondary mb-2">@curso.Nivel</span>
+                        <p class="card-text text-muted">@curso.Descripcion</p>
+                        <p class="mb-1">Profesor: @curso.Profesor</p>
+                        <p class="mb-2 fw-bold">@curso.PrecioMensual.ToString("C0") / mes</p>
+                        @if (curso.Cupos > 0)
+                        {
+                            <span class="badge text-bg-success">@curso.Cupos cupos</span>
+                        }
+                        else
+                        {
+                            <span class="badge text-bg-danger">Sin cupos</span>
+                        }
+                    </div>
+                    <div class="card-footer bg-white border-0 pb-3">
+                        <a class="btn btn-outline-dark btn-sm" asp-action="Detalle" asp-route-id="@curso.Id">Detalle</a>
+                        @if (curso.Cupos > 0)
+                        {
+                            <a class="btn btn-dark btn-sm" asp-controller="Inscripciones" asp-action="Crear" asp-route-cursoId="@curso.Id">Inscribirme</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

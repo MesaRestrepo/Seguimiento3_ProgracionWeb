@@ -1,0 +1,46 @@
+﻿@model List<Curso>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<section class="hero p-5 mb-5">
+    <h1 class="display-5 fw-bold">Escuela de Música Armonía</h1>
+    <p class="lead mb-4">Clases de guitarra, piano, violín, canto, batería y teoría musical con profesores profesionales. Horarios flexibles y descuentos por planes de 6 y 12 meses.</p>
+    <a class="btn btn-light btn-lg me-2" asp-controller="Inscripciones" asp-action="Crear">Inscribirme</a>
+    <a class="btn btn-outline-light btn-lg" asp-controller="Cursos" asp-action="Index">Ver cursos</a>
+</section>
+
+<h2 class="mb-4">Cursos destacados</h2>
+<div class="row g-4 mb-5">
+    @foreach (var curso in Model)
+    {
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="~/img/@curso.Imagen" class="card-img-top foto-curso" alt="@curso.Nombre" />
+                <div class="card-body">
+                    <h5 class="card-title">@curso.Nombre</h5>
+                    <p class="card-text text-muted">@curso.Descripcion</p>
+                    <p class="fw-bold mb-0">@curso.PrecioMensual.ToString("C0") / mes</p>
+                </div>
+                <div class="card-footer bg-white border-0 pb-3">
+                    <a class="btn btn-dark btn-sm" asp-controller="Cursos" asp-action="Detalle" asp-route-id="@curso.Id">Ver detalle</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<section class="row g-4 text-center">
+    <div class="col-md-4">
+        <h5>Profesores expertos</h5>
+        <p class="text-muted">Docentes con trayectoria en escenarios y aulas.</p>
+    </div>
+    <div class="col-md-4">
+        <h5>Horarios flexibles</h5>
+        <p class="text-muted">Mañana, tarde, noche y sábados.</p>
+    </div>
+    <div class="col-md-4">
+        <h5>Descuentos</h5>
+        <p class="text-muted">10% desde 6 meses y 15% con 12 meses.</p>
+    </div>
+</section>
